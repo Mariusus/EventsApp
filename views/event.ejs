@@ -1,0 +1,253 @@
+<% if(event != null ) { %>
+
+
+  <div class="row" >
+
+    <div class="col-12 col-md-4">
+      <img src="/eventimages/<%- event.image %>" class="img-fluid sticky-top" alt="<%- event.eventname %>" loading="lazy">
+
+      <div id="mapbox" style="width: 600px;">
+        <div id="panel" style="width: 600px;">
+      <div class="map" id="map"  style="border-style: dashed; padding: 20em;">
+
+      </div>
+
+          <body>
+          <div class="card">
+              <button><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1.5em"
+                           width="1.5em" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                          d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0 0 11.6 0l43.6-43.5a8.2 8.2 0 0 0 0-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z">
+                  </path>
+                </svg></button>
+            </div>
+            <div class="weather loading" style="text-align-all: center">
+              <h2 class="city"></h2>
+              <h1 class="temp"></h1>
+              <div class="flex">
+                <img src="https://openweathermap.org/img/wn/04n.png" alt="" class="icon" />
+                <div class="description"></div>
+              </div>
+              <div class="humidity"></div>
+              <div class="wind"></div>
+            </div>
+
+          </body>
+        <script>
+
+          function initMap() {
+            let weather = {
+              apiKey: "190e8cd0497349474d9ff38c39841834",
+              fetchWeather: function (city) {
+                fetch(
+              "https://api.openweathermap.org/data/2.5/weather?q=" +
+              city +
+              "&units=metric&appid=" +
+              this.apiKey
+                )
+              .then((response) => {
+                if (!response.ok) {
+                  alert("No weather found.");
+                  throw new Error("No weather found.");
+                }
+                return response.json();
+              })
+              .then((data) => this.displayWeather(data));
+    },
+    displayWeather: function (data) {
+      const { name } = data;
+      const { icon, description } = data.weather[0];
+      const { temp, humidity } = data.main;
+      const { speed } = data.wind;
+      document.querySelector(".city").innerText = "Weather in " + "<%- event.country %>";
+      document.querySelector(".description").innerText = description;
+      document.querySelector(".temp").innerText = temp + "°C";
+      document.querySelector(".humidity").innerText =
+              "Humidity: " + humidity + "%";
+      document.querySelector(".wind").innerText =
+              "Wind speed: " + speed + " km/h";
+      document.querySelector(".weather").classList.remove("loading");
+    },
+
+  };weather.fetchWeather("<%- event.country %>");
+
+  var address = "<%- event.address %>";
+  var geocoder = new google.maps.Geocoder();
+  let directionsService = new google.maps.DirectionsService();
+  let directionsRenderer = new google.maps.DirectionsRenderer();
+  let distancematrix = new google.maps.DistanceMatrixService();
+  geocoder.geocode( { 'address': address}, function(results, status) {
+
+    if (status == google.maps.GeocoderStatus.OK) {
+      var latitude = results[0].geometry.location.lat();
+      var longitude = results[0].geometry.location.lng();
+      console.log("Event Address Latitude Is: " + latitude)
+      console.log("Event Address Longitude Is: " + longitude)
+
+
+      navigator.geolocation.getCurrentPosition(
+              position => {
+                const latitude1 = position.coords.latitude;
+                const longitude1 = position.coords.longitude;
+                console.log(position.coords);
+                var currentcoords = new google.maps.LatLng(latitude1, longitude1);
+                var marker = new google.maps.Marker({
+             //     position: currentcoords,
+                  map: map,
+                  title: "You Are Here"
+                });
+                directionsRenderer.setMap(map); // Existing map object displays directions
+                // Create route from existing points used for markers
+                const route = {
+                  origin: currentcoords,
+                  destination: latlng,
+                  travelMode: 'DRIVING',
+                }
+                distancematrix.getDistanceMatrix(
+                        {
+                          origins: [route.origin ],
+                          destinations: [route.destination ],
+                          travelMode: 'DRIVING'
+                        }, callback);
+
+                function callback(response, status) {
+                  if (status == 'OK') {
+                    var origins = response.originAddresses;
+                    var destinations = response.destinationAddresses;
+
+                    for (var i = 0; i < origins.length; i++) {
+                      var results = response.rows[i].elements;
+                      console.log(results);
+                      for (var j = 0; j < results.length; j++) {
+                        var element = results[j];
+                        var distance = element.distance.text;
+                        var duration = element.duration.text;
+                        var from = origins[i];
+                        var to = destinations[j];
+                      }
+                    }
+                  }
+                }
+
+                    directionsRenderer.setPanel(document.getElementById('panel'));
+                directionsService.route(route,
+                        function(response, status) { // anonymous function to capture directions
+                          if (status !== 'OK') {
+                            window.alert('Directions request failed due to ' + status);
+                            return;
+                          } else {
+                            directionsRenderer.setDirections(response); // Add route to the map
+                            var directionsData = response.routes[0].legs[0]; // Get data about the mapped route
+                            if (!directionsData) {
+                              window.alert('Directions request failed');
+                              return;
+                            }
+                            else {
+                              document.getElementById('msg').innerHTML += " Driving distance is " + directionsData.distance.text + " (" + directionsData.duration.text + ").";
+                            }
+                          }
+                        });
+
+              },
+              err => alert(`Error (${err.code}): ${getPositionErrorMessage(err.code)}`)
+
+      );
+
+
+      var latlng = new google.maps.LatLng(latitude, longitude);
+
+      var myOptions = {
+        zoom: 14,
+        center: latlng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: false
+      };
+      var map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+      var marker = new google.maps.Marker({
+     //   position: latlng,
+        map: map,
+        title: "Location:  " + address,
+        label: "Attendants:  " + "<%- event.attendants.length %>"
+
+      });
+
+      const contentString =
+              '<div id="content">' +
+              '<div id="siteNotice">' +
+              "</div>" +
+              '<h1 id="firstHeading" class="firstHeading"><%- event.address %> </h1>' +
+              '<div id="bodyContent">' +
+              "<p><b> </b><b> Attendants:  <%- event.attendants.length %></b>" +
+              "</div>" +
+              "</div>";
+
+
+      const infowindow = new google.maps.InfoWindow({
+        content: contentString,
+      });
+
+      marker.addListener("click", () => {
+        infowindow.open({
+          anchor: marker,
+          map,
+          shouldFocus: false,
+          title: "Location:  " + address,
+          label: "Attendants:  " + "<%- event.attendants.length %>"
+        });
+      });
+
+
+    }
+
+  })
+
+}
+
+        </script>
+        <script
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-ZxwSEE0i_Mx_ueNk2p8Ca7BfBKNcahU&callback=initMap&libraries=&v=weekly"
+        ></script>
+      </div>
+
+
+      <div>
+      <a href="/update-event/" class="btn btn-primary btn-dark btn-lg; product__btn">Update Event</a>
+        <form action="/event/_id" method="post">
+        <button type="submit" class="btn btn-primary btn-dark btn-lg; product__btn" >Delete Event</button>
+        </form>
+    </div>
+    </div>
+
+    <div class="col-12 col-md-8">
+      <div class="row">
+        <div class="col-12"><h1><%- event.eventname %></h1></div>
+        <div class="col-12 mb-4"><i class="bi bi-tag"></i> <%- event.category %></div>
+        <div class="col-12" style="white-space: pre-line;">
+          <h4>Event Country: </h4>
+          <%- event.country %>
+        </div>
+        <div class="col-12" style="white-space: pre-line;">
+          <h4>Event Address: </h4>
+          <%- event.address %>
+        </div>
+        <div class="col-12" style="white-space: pre-line;">
+          <h4>Event Description: </h4>
+          <%- event.description %>
+        </div>
+        <div class="col-12" style="white-space: pre-line;">
+          <h4>Event Capacity: </h4>
+          <%- event.capacity %>
+        </div>
+      </div>
+    </div>
+    <form action="/register-attendant " method="POST">
+      <button href="/register-attendant" class="btn btn-primary btn-dark btn-lg; event__btn" >Register For The Event</button>
+    </form>
+
+  </div>
+
+
+    </div>
+  </div>
+<% } %>

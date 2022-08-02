@@ -1,0 +1,125 @@
+<h1 class="pb-4">Event Categories</h1>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/categories">Categories</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Explore Categories</li>
+    </ol>
+</nav>
+
+
+
+
+<div>
+    <canvas id="chart" ></canvas>
+</div>
+
+<script>
+
+console.log("<%= capacity.name %>");
+    var ctx = document.getElementById("chart");
+
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+ labels: ['By Country', 'By Category', 'By Capacity'],
+
+            datasets: [
+                {
+                    label: ['Denmark', 'Fitness', 'Capacity'],
+                    data: ["<%= countries.Denmark.length %>", "<%= categories.Fitness.length %>", "<%= capacity.length %>"],
+
+                    backgroundColor: 'rgb(0,193,200)',
+                    showLine: true,
+
+                    fill: false,
+                    borderColor: 'rgb(0,193,200)'
+                },
+
+                {
+                    label: ['Poland', 'Science', 'Capacity'],
+                    data: ["<%= countries.Poland.length %>", "<%= categories.Science.length %>", "<%= capacity.length %>"],
+                    backgroundColor: 'rgb(200,130,0)',
+                    showLine: true,
+                    fill: false,
+
+                    borderColor: 'rgb(200,130,0)'
+                },
+                {
+                    label: ['Sweden', 'Music', 'Capacity'],
+                    data: ["<%= countries.Sweden.length %>", "<%= categories.Music.length %>", "<%= capacity.length %>"],
+                    backgroundColor: 'rgba(110,0,200,0.56)',
+                    showLine: true,
+                    fill: false,
+                    borderColor: 'rgba(110,0,200,0.56)'
+                },
+                {
+                    label: ['Iceland', 'History', 'Capacity'],
+                    data: ["<%= countries.Iceland.length %>", "<%= categories.History.length %>", "<%= capacity.length %>"],
+                    backgroundColor: 'rgba(0, 200, 0, 1)',
+                    showLine: true,
+                    fill: false,
+                    borderColor: 'rgba(0, 200, 0, 1)'
+                },
+                {
+                    label: ['Germany', 'Food', 'Capacity'],
+                    data: ["<%= countries.Germany.length %>", "<%= categories.Food.length %>"],
+                    backgroundColor: 'rgb(200,173,0)',
+                    showLine: true,
+                    fill: false,
+                    borderColor: 'rgb(200,173,0)'
+                },
+                {
+                    label: ['China', 'Cultural', 'Capacity'],
+                    data: ["<%= countries.China.length %>", "<%= categories.Cultural.length %>"],
+                    backgroundColor: 'rgb(200,0,23)',
+                    showLine: true,
+                    fill: false,
+                    borderColor: 'rgb(200,0,23)'
+                },
+                {
+                    label: ['Norway', 'Technology', 'Capacity'],
+                    data: ["<%= countries.Norway.length %>", "<%= categories.Technology.length %>"],
+                    backgroundColor: 'rgb(20,0,200)',
+                    showLine: true,
+                    fill: false,
+                    borderColor: 'rgb(20,0,200)'
+                }
+            ],
+
+
+        },
+        options: {
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            layout: {
+                padding: {
+                    left: 0,
+                    right: 0,
+                    top: 30,
+                    bottom: 0
+                }
+                },
+            scales: {
+                yAxes: [{
+
+                    ticks: {
+                        stepSize: 1,
+                        min: 0,
+                        autoSkip: false
+
+                    }
+                }]
+            },
+        }
+    });
+
+</script>

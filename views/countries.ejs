@@ -1,0 +1,36 @@
+<h1 class="pb-4">Event Countries</h1>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/country">Countries</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Explore Countries</li>
+    </ol>
+</nav>
+
+<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 mb-4">
+    <% if(typeof country !== 'undefined' && countries.length > 0) { %>
+        <% country.forEach(function(country, index) { %>
+            <a href="/country/<%- country.name %>" class="col text-center category__link">
+                <%- country.name %>
+                <div class="category__img shadow">
+                    <img src="/<%- country.image %>"loading="lazy">
+                </div>
+            </a>
+        <% }) %>
+    <% } %>
+</div>
+
+
+<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+    <% if(typeof countryById !== 'undefined' && countryById.length > 0) { %>
+        <% countryById.forEach(function(country, index){ %>
+            <a href="/country/<%= country._id %>" class="col text-center category__link">
+                <div class="category__img category__img--large shadow">
+                    <img src="/eventimages/countryimages/<%= country.image %>" alt="<%= country.name %>" loading="lazy">
+                </div>
+                <div class="pt-1"><%= country.name %></div>
+            </a>
+        <% }) %>
+    <% } %>
+</div>

@@ -1,0 +1,15 @@
+<h1 class="pb-4">Explore Latest Events</h1>
+
+<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+
+  <% if(events != '') { %>
+    <%  events.forEach(function(event, index){ %>
+    <a href="/event/<%= event._id %>" class="col text-center category__link" style="padding: 10px; width: 50em">
+      <div class="category__img category__img--large shadow" >
+        <img src="/eventimages/<%= event.image %>" alt="<%= event.eventname %>" loading="lazy">
+      </div>
+      <div class="pt-1"><%= event.eventname %></div>
+    </a>
+    <% }) %>
+  <% } %> 
+</div>

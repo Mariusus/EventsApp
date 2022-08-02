@@ -1,0 +1,95 @@
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold">Update The Event</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead">Update An Event</p>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+
+    <% if(infoSubmitObj != '') { %>
+        <div class="col-8 alert alert-success" role="alert">
+            <%= infoSubmitObj %>
+        </div>
+    <% } %>
+
+    <% if(infoErrorsObj != '') { %>
+        <div class="col-8 alert alert-danger" role="alert">
+            <%= infoErrorsObj[0].message %>
+        </div>
+    <% } %>
+
+        <div class="col-8" style="text-align: center">
+
+            <form action="/update-event" enctype="multipart/form-data" method="POST">
+
+                <div class="row g-3">
+
+                    <div class="col-12">
+                        <label for="capacity" class="form-label">Capacity</label>
+                        <input type="number" name="capacity" id="capacity" min="0" max="10000" step="0.01" class="form-control">
+                    </div>
+
+                    <div class="col-12">
+                        <label for="eventname" class="form-label">Event Name</label>
+                        <input type="text" name="eventname" id="eventname" class="form-control" required>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="address" class="form-label">Event Address</label>
+                        <input type="text" name="address" id="address" class="form-control" required>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea name="description" id="description" class="form-control" cols="30" rows="4"></textarea>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="category">Select Category</label>
+                        <select class="form-select form-control" name="category" aria-label="Category">
+                            <option selected>Select Category</option>
+                            <option value="Music">Music</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Cultural">Cultural</option>
+                            <option value="Fitness">Fitness</option>
+                            <option value="Science">Science</option>
+                            <option value="Food">Food</option>
+                            <option value="History">History</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Art">Art</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="country">Select Country</label>
+                        <select class="form-select form-control" name="country" aria-label="Country">
+                            <option selected>Select Country</option>
+                            <option value="Denmark">Denmark</option>
+                            <option value="Iceland">Iceland</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Netherlands">Netherlands</option>
+                            <option value="Norway">Norway</option>
+                            <option value="Jerusalem">Jerusalem</option>
+                            <option value="China">China</option>
+                            <option value="Poland">Poland</option>
+                            <option value="Sweden">Sweden</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="image">Select An Image</label>
+                        <input type="file" class="form-control" name="image" accept="image/*">
+                    </div>
+
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Update Event</button>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+</div>

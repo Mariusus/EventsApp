@@ -1,0 +1,297 @@
+<div class="row flex-lg-row-reverse align-items-center g-5 py-4 mb-4">
+  <div class="col-12 col-lg-6">
+    <img src="productimages/categoryimages/indexlogo.jpg" width="607" height="510" class="d-block mx-lg-auto img-fluid" loading="lazy" alt="Events.js">
+  </div>
+
+  <div class="col-12 col-lg-6">
+    <h1 class="display-5 fw-bold mb-3">Events of all categories</h1>
+    <p class="lead">
+      See the ongoing events in the world or add your own
+    </p>
+
+    <div class=" gap-2 d-md-flex">
+      <a href="/latest" id="Explorebtn" class="btn btn-primary btn-dark btn-lg px-4 me-md-2">Explore Latest</a>
+      <a href="/random" id="Randombtn" class="btn btn-outline-secondary btn-lg px-4 me-md-2">Show Random</a>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- Categories -->
+
+
+<div class="container">
+
+
+  <% if(categories != '') { %>
+    <% categories.forEach(function(category, index) { %>
+      <a href="/categories/<%- category.name %>" class="col text-center category__link" style="padding: 10px; width: 50em">
+        <div class="category__img shadow" style="height: 10em">
+          <img src="<%- category.image %>" alt="<%- category.name %>" loading="lazy">
+        </div>
+        <div class="pt-1"><%- category.name %></div>
+      </a>
+    <% }) %>
+  <% } %>
+
+  <a href="/categories" class="col text-center category__link">
+    <div class="category__img shadow" style="padding: 10px; width: 50em" >
+      <img src="eventimages/categoryimages/others.png" alt="View All Categories" loading="lazy">
+    </div>
+    <div class="pt-1">View All</div>
+  </a>
+
+</div>
+<!-- Categories End -->
+
+
+
+<!-- Latest -->
+
+<section class="pb-4 pt-4">
+  <div class="d-flex mb-2 align-items-center">
+    <h2>Latest Events</h2>
+    <a href="/latest" class="ms-auto">View More</a>
+  </div>
+
+  <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+    <% if(events != '') { %>
+      <% events.latest.forEach(function(event, index){ %>
+      <a href="/event/<%= event._id %>" class="col text-center category__link" style="padding: 10px; width: 50em">
+        <div class="category__img category__img--large shadow" style="height: 10em">
+          <img src="/eventimages/<%= event.image %>" alt="<%= event.eventname %>" loading="lazy">
+        </div>
+        <div class="pt-1"><%= event.eventname %></div>
+      </a>
+      <% }) %>
+    <% } %>
+  </div>
+
+</section>
+<!-- Latest End -->
+
+<!-- Music -->
+<section class="pb-4 pt-4">
+  <div class="d-flex mb-2 align-items-center">
+    <h2>Music</h2>
+    <a href="/categories/Music" class="ms-auto">View More</a>
+  </div>
+
+  <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+    <% if(events.Music != '') { %>
+      <% events.Music.forEach(function(event, index){ %>
+        <a href="/event/<%= event._id %>" class="col text-center category__link" style="padding: 10px; width: 50em">
+          <div class="category__img category__img--large shadow" style="height: 10em">
+            <img src="/eventimages/<%= event.image %>" alt="<%= event.eventname %>" loading="lazy">
+          </div>
+          <div class="pt-1"><%= event.eventname %></div>
+        </a>
+      <% }) %>
+    <% } %>
+  </div>
+</section>
+<!-- Music End -->
+
+<!-- Food start -->
+<section class="pb-4 pt-4">
+  <div Food="d-flex mb-2 align-items-center">
+    <h2>Food</h2>
+    <a href="/categories/Food" class="ms-auto">View More</a>
+  </div>
+
+  <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+    <% if(events.Food != '') { %>
+      <% events.Food.forEach(function(event, index){ %>
+      <a href="/event/<%= event._id %>" class="col text-center category__link" style="padding: 10px; width: 50em">
+        <div class="category__img category__img--large shadow" style="height: 10em">
+          <img src="/eventimages/<%= event.image %>" alt="<%= event.eventname %>" loading="lazy">
+        </div>
+        <div class="pt-1"><%= event.eventname %></div>
+      </a>
+      <% }) %>
+    <% } %>
+  </div>
+</section>
+<!-- Food End -->
+
+<!-- Cultural -->
+<section class="pb-4 pt-4">
+  <div class="d-flex mb-2 align-items-center">
+    <h2>Cultural</h2>
+    <a href="/categories/Cultural" class="ms-auto">View More</a>
+  </div>
+
+  <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+    <% if(events.Cultural != '') { %>
+      <% events.Cultural.forEach(function(event, index){ %>
+      <a href="/event/<%= event._id %>" class="col text-center category__link" style="padding: 10px; width: 50em">
+        <div class="category__img category__img--large shadow" style="height: 10em">
+          <img src="/eventimages/<%= event.image %>" alt="<%= event.eventname %>" loading="lazy">
+        </div>
+        <div class="pt-1"><%= event.eventname %></div>
+      </a>
+        <% }) %>
+    <% } %>
+  </div>
+</section>
+<!-- Cultural End -->
+
+
+<!-- Fitness -->
+<section class="pb-4 pt-4">
+  <div class="d-flex mb-2 align-items-center">
+    <h2>Fitness</h2>
+    <a href="/categories/Fitness" class="ms-auto">View More</a>
+  </div>
+
+  <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+    <% if(events.Fitness != '') { %>
+      <% events.Fitness.forEach(function(event, index){ %>
+        <a href="/event/<%= event._id %>" class="col text-center category__link" style="padding: 10px; width: 50em">
+          <div class="category__img category__img--large shadow" style="height: 10em">
+            <img src="/eventimages/<%= event.image %>" alt="<%= event.eventname %>" loading="lazy">
+          </div>
+          <div class="pt-1"><%= event.eventname %></div>
+        </a>
+      <% }) %>
+    <% } %>
+  </div>
+</section>
+
+<section class="pb-4 pt-4">
+  <div class="d-flex mb-2 align-items-center">
+    <h2>Technology</h2>
+    <a href="/categories/Technology" class="ms-auto">View More</a>
+  </div>
+
+  <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+    <% if(events.Technology != '') { %>
+      <% events.Technology.forEach(function(event, index){ %>
+        <a href="/event/<%= event._id %>" class="col text-center category__link" style="padding: 10px; width: 50em">
+          <div class="category__img category__img--large shadow" style="height: 10em">
+            <img src="/eventimages/<%= event.image %>" alt="<%= event.eventname %>" loading="lazy">
+          </div>
+          <div class="pt-1"><%= event.eventname %></div>
+        </a>
+      <% }) %>
+    <% } %>
+  </div>
+</section>
+
+<section class="pb-4 pt-4">
+  <div class="d-flex mb-2 align-items-center">
+    <h2>Science</h2>
+    <a href="/categories/Science" class="ms-auto">View More</a>
+  </div>
+
+  <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+    <% if(events.Science != '') { %>
+      <% events.Science.forEach(function(event, index){ %>
+        <a href="/event/<%= event._id %>" class="col text-center category__link" style="padding: 10px; width: 50em">
+          <div class="category__img category__img--large shadow" style="height: 10em">
+            <img src="/eventimages/<%= event.image %>" alt="<%= event.eventname %>" loading="lazy">
+          </div>
+          <div class="pt-1"><%= event.eventname %></div>
+        </a>
+      <% }) %>
+    <% } %>
+  </div>
+</section>
+
+<section class="pb-4 pt-4">
+  <div class="d-flex mb-2 align-items-center">
+    <h2>History</h2>
+    <a href="/categories/History" class="ms-auto">View More</a>
+  </div>
+
+  <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+    <% if(events.History != '') { %>
+      <% events.History.forEach(function(event, index){ %>
+        <a href="/event/<%= event._id %>" class="col text-center category__link" style="padding: 10px; width: 50em">
+          <div class="category__img category__img--large shadow" style="height: 10em">
+            <img src="/eventimages/<%= event.image %>" alt="<%= event.eventname %>" loading="lazy">
+          </div>
+          <div class="pt-1"><%= event.eventname %></div>
+        </a>
+      <% }) %>
+    <% } %>
+  </div>
+</section>
+
+<section class="pb-4 pt-4">
+  <div class="d-flex mb-2 align-items-center">
+    <h2>Marketing</h2>
+    <a href="/categories/Marketing" class="ms-auto">View More</a>
+  </div>
+
+  <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+    <% if(events.Marketing != '') { %>
+      <% events.Marketing.forEach(function(event, index){ %>
+        <a href="/event/<%= event._id %>" class="col text-center category__link" style="padding: 10px; width: 50em">
+          <div class="category__img category__img--large shadow" style="height: 10em">
+            <img src="/eventimages/<%= event.image %>" alt="<%= event.eventname %>" loading="lazy">
+          </div>
+          <div class="pt-1"><%= event.eventname %></div>
+        </a>
+      <% }) %>
+    <% } %>
+  </div>
+</section>
+
+
+<section class="pb-4 pt-4">
+  <div class="d-flex mb-2 align-items-center">
+    <h2>Art</h2>
+    <a href="/categories/Art" class="ms-auto">View More</a>
+  </div>
+
+  <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+    <% if(events.Art != '') { %>
+      <% events.Art.forEach(function(event, index){ %>
+        <a href="/event/<%= event._id %>" class="col text-center category__link" style="padding: 10px; width: 50em">
+          <div class="category__img category__img--large shadow" style="height: 10em">
+            <img src="/eventimages/<%= event.image %>" alt="<%= event.eventname %>" loading="lazy">
+          </div>
+          <div class="pt-1"><%= event.eventname %></div>
+        </a>
+      <% }) %>
+    <% } %>
+  </div>
+</section>
+
+<section class="pb-4 pt-4">
+  <div class="d-flex mb-2 align-items-center">
+    <h2>Other</h2>
+    <a href="/categories/Other" class="ms-auto">View More</a>
+  </div>
+
+  <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+    <% if(events.Other != '') { %>
+      <% events.Other.forEach(function(event, index){ %>
+        <a href="/event/<%= event._id %>" class="col text-center category__link" style="padding: 10px; width: 50em">
+          <div class="category__img category__img--large shadow" style="height: 10em">
+            <img src="/eventimages/<%= event.image %>" alt="<%= event.eventname %>" loading="lazy">
+          </div>
+          <div class="pt-1"><%= event.eventname %></div>
+        </a>
+      <% }) %>
+    <% } %>
+  </div>
+</section>
+
+
+
+
+<!-- Submit -->
+<section class="px-4 py-5 my-5 text-center">
+  <img src="/eventimages/countryimages/poland.jpg" class="d-block mx-auto mb-4 img-fluid" alt="Create Your Event" width="560" height="200" loading="lazy">
+  <h1 class="display-4 fw-bold">Submit A New Event</h1>
+  <div class="col-lg-5 mx-auto">
+    <p class="lead mb-4">Click Below To Start.</p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-center">
+      <a href="/submit-event" class="btn btn-primary btn-dark btn-lg">Submit Event</a>
+    </div>
+  </div>
+</section>
